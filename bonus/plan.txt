@@ -1,0 +1,32 @@
+Parsing
+
+parser struct con
+	char   flag = {-, 0} se c'è - scalza 0
+	int 	width = digits che passo prima ad atoi
+	int	precision = digits dopo il . che passo ad atoi
+
+i s[i] = '%' quindi dopo % leggo:
+	i++
+	1. la flag:
+		if s[i] = '-' o '0'
+			char flag = '-' o '0' 
+			parser->flag = flag 
+	i++
+	posso avere un'altra flag, o width, o '.', o lo specificatore
+		if s[i] == '-' o '0'   \\ faccio una funzione is_flag
+			if è 0 non devo modificare per '-' > '0' 
+				i++; //passo avanti
+			if è '-' allora devo modificare 
+				parser-> flag = flag = '-'
+		if s[i] is_digit
+			passo stringa ad atoi e passo il puntatore dell'iteratore
+			width = atoi(stringa, int *i)
+			mi salvo il numero: parser -> width = width
+		if s[i] is_punto
+			passo stringa ad atoi e il puntatore dell'iteratore 
+			(ricorda che può anche essere solo ., è precisione == 0)
+			precision = atoi(stringa, int *i)
+			parser -> precision = precision
+		if s[i] == specificatore
+			printf
+		

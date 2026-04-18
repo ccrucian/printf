@@ -1,0 +1,62 @@
+%[flags][width][.precision]conversioni
+
+[flags]:'-' (left align) allinea a sinistra invece che a destra.\
+			(Es: f("%-5d", 42) -> "42   ")
+
+	'0' (zero padding) riempie con zeri invece che spazi \
+			   solo numeri e senza precision!!!
+			(Es: f("%05d", 42) -> "00042")
+	
+	N.B.:	se c'è '-' -> '0' viene ignorato
+		se c'è .precision -> '0' viene ignorato
+
+[width] è un numero, indica quanti caratteri minimi deve occupare \
+	l'output. Se il valore è più corto viene riempito con degli\
+	spazi e allinea a destra. 
+					(Es f("%5d", 42) -> "   42") 
+
+[.precision] è '.' seguito da un numero, oppure anche solo '.'
+		Dipende dal tipo:
+		
+		-NUMERI (d i u x X) = numero minimo di cifre
+			f("%.5d", 42) -> 00042
+		
+		-STRINGHE (s) = numero massimo di caratteri stampati
+			f("%.3s", ciao) -> cia
+
+Le combinazioni possibili sono:
+
+	1. Solo width:
+		E.i.: 	%10d
+			%5s
+			%8x
+
+	2. Solo '-':	//in pratica senza width non serve a niente
+		%-d
+		%-10d
+		%-8s
+
+	3. Solo '0':
+		%05d
+		%08x
+		%010u
+	
+	4. Solo precision:
+		%.5d
+	
+	5. Width + precision:
+		%10.5d
+		%8.3s
+	
+	6. '-' + width:
+
+	7. '0' + width
+
+	8. '-' + precision
+
+	9. '0' + precision
+	
+	10. '0' + width + precision
+	
+	11. '-' + '0' + width + precision
+	
