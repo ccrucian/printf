@@ -8,25 +8,14 @@ faccio un tipo struct dove raccolgo tutte le opzioni
 *-Faccio una funzione che prende il puntatore alla struttura 
 inizializza tutti i valori a 0
 
-*-Faccio una funzione che dichiara una struttura, chiama set_opt per
-inizializzarla e torna il puntatore alla struttura(non si puo fare \
-perchè non si può ritornare il puntatore a una variabile statica)
-	Quindi lo faccio in ft_parser (vedi dopo) dichiaro e\
-	 inizializzo.
-
 is_specifier dà 1 se il carattere non è secifier.
 
-*-Faccio funzione ft_parser che vien chiamata dopo aver trovato % \
-(deve prendere la stringa da dopo% quindi gli passo &s[i]),  \
-dichiara t_opt che è la struttura dove racolgo i dati di parsing e
-chiama semplicemente le varie funzioni parser, passandogli la stinga\
-e il puntatoe alla struttura:
+*-Faccio funzione ft_parser #che scorre la stringa a partire da dopo 
+che trova %# che vien chiamata dopo aver trovato % (deve prendere
+la stringa da dopo%, e chiama semplicemente le varie funzioni parser:
 CHIAMA:
 	parse_flag: prende la stringa e la scorre fino a quando non 
 			trova specifier (is_specifier == 0)
-			cerca 0 e - e setta i campi a 1 in opt
-	parse_width: prende stringa e salva in opt->width
-
 	
 i s[i] = '%' quindi dopo % leggo:
 	i++
