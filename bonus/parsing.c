@@ -29,10 +29,11 @@ void	parse_point_precision(const char *s, t_opt *opt)
 		{
 			opt->point = 1;
 			opt->prec = 0;
+			i++;
 			while (s[i] >= '0' && s[i] <= '9')
 			{
-			      i++;
 			      opt->prec = (opt->prec * 10) + (s[i] - '0');
+			      i++;
 			}
 			break;
 		}
@@ -47,11 +48,8 @@ void	parse_width(char const *s,t_opt *opt)
 	i = 0;
 	while (s[i] && !is_specifier(s[i]) && s[i] != '.')
 	{
-		while (s[i] >= '0' && s[i] <= '9')
-		{
+		if (s[i] >= '0' && s[i] <= '9')
 			opt->width = (opt->width * 10) + (s[i] - '0');
-			i++;
-		}
 		i++;
 	}
 }

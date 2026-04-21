@@ -30,7 +30,7 @@ void	iter_opt(const char *s, int *i);
 void 	put_char(const char c, int *cont);
 //	Funzioni in utils_b.c
 void	put_str_prec(char const *s, int *cont, int prec); 
-void	padding(int i, int *cont, int len, int prec);
+void	padding(int width, int *cont, int len, int prec);
 int	ft_strlen(char const *s);
 
 # endif

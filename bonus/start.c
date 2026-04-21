@@ -49,8 +49,39 @@ void	put_char(const char c, int *cont)
 
 int	main(void)
 {
-	ft_print("|%5-c|\n", 'c');
-	ft_print("|%-5c| \n", 'c');
-	printf("|%-5c| \n", 'c');
+	printf("len maggiore di width ( width < len:\n");
+	ft_print(">|%2s|\n", "ciao");
+	printf("-|%2s|\n", "ciao");
+
+	printf("Width=6:\n");
+	ft_print(">|%6s|\n", "ciao");
+	printf("-|%6s|\n", "ciao");
+
+	printf("Width=-6:\n");
+	ft_print(">|%-6s|\n", "ciao");
+	printf("-|%-6s|\n", "ciao");
+
+	printf("Solo point.:\n");
+	ft_print("+|%.s|\n", "ciao");
+	printf("-|%.s|\n", "ciao");
+
+	printf("Prec: .2:\n");
+	ft_print(">|%.2s|\n", "ciao");
+	printf("-|%.2s|\n", "ciao");
+
+	printf("Width+prec: 5.2:\n");
+	ft_print("+|%5.2s|\n", "ciao");
+	printf("-|%5.2s|\n", "ciao");
+
+	printf("Width+pointsolo: 5.:\n");
+	ft_print("+|%5.s|\n", "ciao");
+	printf("-|%5.s|\n", "ciao");
+
+	printf("Width minore len+prec: 3.2:\n");
+	ft_print("+|%3.2s|\n", "ciao");
+	printf("-|%3.2s|\n", "ciao");
+
+
+
 	return (0);
 }

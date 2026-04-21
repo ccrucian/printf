@@ -38,11 +38,9 @@ void	handle_s(va_list list, t_opt *opt, int *cont)
 {
 	char	*s;
 	int	len;
-	int	i_pad;
 
 	s = va_arg(list, char *);
 	len = ft_strlen(s);
-	i_pad = opt->width - len;
 	if (len >= opt->width)
 		put_str_prec(s, cont, opt->prec);
 	else if (opt->width > len)
@@ -50,11 +48,11 @@ void	handle_s(va_list list, t_opt *opt, int *cont)
 		if (opt->minus == 1)
 		{
 			put_str_prec(s, cont, opt->prec);
-			padding(i_pad, cont, len, opt->prec);
+			padding(opt->width, cont, len, opt->prec);
 		}
 		else if (opt->minus == 0)
 		{
-			padding(i_pad, cont, len, opt->prec);
+			padding(opt->width, cont, len, opt->prec);
 			put_str_prec(s, cont, opt->prec);
 		}
 	}

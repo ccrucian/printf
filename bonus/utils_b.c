@@ -22,10 +22,13 @@ void	put_str_prec(const char *s, int *cont, int prec)
 	}
 }
 
-void	padding(int i_pad, int *cont, int len, int prec)
+void	padding(int width, int *cont, int len, int prec)
 {
-	if (prec < 0 || len <= prec)
+	int	i_pad;
+
+	if (prec < 0)
 	{
+		i_pad = width - len;
 		(*cont) += i_pad;
 		while (i_pad > 0)
 		{	
@@ -35,7 +38,7 @@ void	padding(int i_pad, int *cont, int len, int prec)
 	}
 	else if (prec >= 0 && prec < len)
 	{
-		i_pad += prec;
+		i_pad = width - (len - prec);
 		(*cont) += i_pad;
 		while (i_pad > 0)
 		{

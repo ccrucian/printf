@@ -4,9 +4,7 @@
 
 void	ft_parser(char const *s, t_opt *opt)
 {
-	set_opt(opt);
-	parse_flag(s, opt);
-	parse_width(s, opt);
+	set_opt(opt);;
 	parse_point_precision(s, opt);
 	parse_specifier(s, opt);
 }
