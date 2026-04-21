@@ -8,37 +8,29 @@ faccio un tipo struct dove raccolgo tutte le opzioni
 *-Faccio una funzione che prende il puntatore alla struttura 
 inizializza tutti i valori a 0
 
+*-Faccio una funzione che dichiara una struttura, chiama set_opt per
+inizializzarla e torna il puntatore alla struttura(non si puo fare \
+perchè non si può ritornare il puntatore a una variabile statica)
+	Quindi lo faccio in ft_parser (vedi dopo) dichiaro e\
+	 inizializzo.
+
 is_specifier dà 1 se il carattere non è secifier.
 
-*-Faccio funzione ft_parser #che scorre la stringa a partire da dopo 
-che trova %# che vien chiamata dopo aver trovato % (deve prendere
-la stringa da dopo%, e chiama semplicemente le varie funzioni parser:
+*-Faccio funzione ft_parser che vien chiamata dopo aver trovato % \
+(deve prendere la stringa da dopo% quindi gli passo &s[i] e il\
+puntatore alla struct), poi setto a zero la struct \
+**"dichiara t_opt che è la struttura dove racolgo i dati di parsing"\
+--> cambiato la struct la dichiaro nella funzione che chiama parser*\
+e chiama semplicemente le varie funzioni parser, passandogli \
+la stinga e il puntatoe alla struttura:
 CHIAMA:
 	parse_flag: prende la stringa e la scorre fino a quando non 
 			trova specifier (is_specifier == 0)
-	
-i s[i] = '%' quindi dopo % leggo:
-	i++
-	1. la flag:
-		if s[i] = '-' o '0'
-			char flag = '-' o '0' 
-			parser->flag = flag 
-	i++
-	posso avere un'altra flag, o width, o '.', o lo specificatore
-		if s[i] == '-' o '0'   \\ faccio una funzione is_flag
-			if è 0 non devo modificare per '-' > '0' 
-				i++; //passo avanti
-			if è '-' allora devo modificare 
-				parser-> flag = flag = '-'
-		if s[i] is_digit
-			passo stringa ad atoi e passo il puntatore dell'iteratore
-			width = atoi(stringa, int *i)
-			mi salvo il numero: parser -> width = width
-		if s[i] is_punto
-			passo stringa ad atoi e il puntatore dell'iteratore 
-			(ricorda che può anche essere solo ., è precisione == 0)
-			precision = atoi(stringa, int *i)
-			parser -> precision = precision
-		if s[i] == specificatore
-			printf
-		q
+			cerca 0 e - e setta i campi a 1 in opt
+	parse_width: prende stringa e salva in opt->width
+	parse_point_precision
+	parse_specifier
+ora li ho salvati tutti nella struct opt.
+
+
+-una funzione che mi itera le opzioni dpo % cosi da non stamparle- 

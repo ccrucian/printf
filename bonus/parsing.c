@@ -1,53 +1,81 @@
-#include <stdio.h>
 #include "bonus.h"
 #include <stdarg.h>
+#include <stdio.h>
 
-int	ft_print(const char *s, ...)
-{
-	va_list	list;
-	int	j;
-	int	cont;
-
-	j = 0;
-	cont = 0;
-	list = va_start(list, s);
-	while (s[j])
-	{
-		if (s[j] == '%')
-		{
-			j++;
-			j += ft_parser(&s[j], &cont, list);
-		}
-		put_char(s[j], &cont);
-		i++;
-	}
-	va_end(list);
-	return (cont);
-}
-
-int	ft_parser(const char *s, int *cont, va_list list)
+void	parse_specifier(char const *s, t_opt *opt)
 {
 	int	i;
 
 	i = 0;
-	parse_flag();
+	while (s[i])
+	{
+		if (is_specifier(s[i]))
+		{
+			opt->spec = s[i];
+			break;
+		}
+		i++;
+	}
 }
 
-void	parse_flag(int *i)
+void	parse_point_precision(const char *s, t_opt *opt)
 {
-	while (s[*i] == 0 && !(is_digit(s[++(*i)])))
+	int	i;
+
+	i = 0;
+	while (s[i] && !is_specifier(s[i]))
 	{
-		data.flag = 0;
-		(*i)++;
+		if (s[i] == '.')
+		{
+			opt->point = 1;
+			opt->prec = 0;
+			while (s[i] >= '0' && s[i] <= '9')
+			{
+			      i++;
+			      opt->prec = (opt->prec * 10) + (s[i] - '0');
+			}
+			break;
+		}
+		i++;
 	}
-	if (s[*i] == '-')
-	{
-		data.flag = '-';
-		(*i)++;
-	}
-	if (s[*i] == '0' && s[(*i)++] == '-')
-		data.flag = '-';	
 }
 
+void	parse_width(char const *s,t_opt *opt)
+{
+	int	i;
 
+	i = 0;
+	while (s[i] && !is_specifier(s[i]) && s[i] != '.')
+	{
+		while (s[i] >= '0' && s[i] <= '9')
+		{
+			opt->width = (opt->width * 10) + (s[i] - '0');
+			i++;
+		}
+		i++;
+	}
+}
 
+void	parse_flag(char const *s, t_opt *opt)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && !is_specifier(s[i]))
+	{
+		if (s[i] == '-')
+			opt->minus = 1;
+		if (s[i] == '0' && !is_digit(s[i + 1]) && s[i - 1] != '.')
+			opt->zero = 1;
+		i++;
+	}
+}
+
+/*int	main(void)
+{
+	char	t = 'c';
+
+	ft_print("%c\n", t);
+	printf("%c\n", t);
+	return (0);
+}*/

@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <unistd.h>
+#include "bonus.h"
+#include <stdarg.h>
+
+void	put_str_prec(const char *s, int *cont, int prec)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	if (prec >= 0 && i >= prec)
+	{
+		write(1, s, prec);
+		(*cont) += prec;
+	}
+	else
+	{
+		write(1, s, i);
+		(*cont) += i;
+	}
+}
+
+void	padding(int i_pad, int *cont, int len, int prec)
+{
+	if (prec < 0 || len <= prec)
+	{
+		(*cont) += i_pad;
+		while (i_pad > 0)
+		{	
+			write(1, " ", 1);
+			i_pad--;
+		}
+	}
+	else if (prec >= 0 && prec < len)
+	{
+		i_pad += prec;
+		(*cont) += i_pad;
+		while (i_pad > 0)
+		{
+			write(1, " ", 1);
+			i_pad--;
+		}
+	}
+}
+
+int	ft_strlen(char const *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
