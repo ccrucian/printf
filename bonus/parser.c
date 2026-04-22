@@ -4,7 +4,9 @@
 
 void	ft_parser(char const *s, t_opt *opt)
 {
-	set_opt(opt);;
+	set_opt(opt);
+	parse_flag(s, opt);
+	parse_width(s, opt);
 	parse_point_precision(s, opt);
 	parse_specifier(s, opt);
 }
@@ -30,5 +32,5 @@ int	is_specifier(char c)
 
 int	is_digit(char c)
 {
-	return (c >= 1 && c <= 9);//torna 1 if digit else 0
+	return (c >= 1 && c <= 9);
 }

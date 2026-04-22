@@ -30,21 +30,26 @@ void	padding(int width, int *cont, int len, int prec)
 	{
 		i_pad = width - len;
 		(*cont) += i_pad;
-		while (i_pad > 0)
-		{	
-			write(1, " ", 1);
-			i_pad--;
-		}
 	}
-	else if (prec >= 0 && prec < len)
+	else if (prec > 0 && len > prec)
 	{
-		i_pad = width - (len - prec);
+		i_pad = width + (len - prec);
 		(*cont) += i_pad;
-		while (i_pad > 0)
-		{
-			write(1, " ", 1);
-			i_pad--;
-		}
+	}
+	else if (prec == 0)
+	{
+		i_pad = width;
+		put_pad(i_pad, cont);
+	}
+}
+
+void	put_pad(int i_pad, int *cont)
+{
+	while (i_pad > 0)
+	{
+		write(1, " ", 1);
+		(*cont)++;
+		i_pad--;
 	}
 }
 

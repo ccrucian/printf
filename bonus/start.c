@@ -49,6 +49,7 @@ void	put_char(const char c, int *cont)
 
 int	main(void)
 {
+	ft_print("%5s\n", "ciao");
 	printf("len maggiore di width ( width < len:\n");
 	ft_print(">|%2s|\n", "ciao");
 	printf("-|%2s|\n", "ciao");
@@ -70,8 +71,9 @@ int	main(void)
 	printf("-|%.2s|\n", "ciao");
 
 	printf("Width+prec: 5.2:\n");
-	ft_print("+|%5.2s|\n", "ciao");
+	int cont = ft_print("+|%5.2s|", "ciao");
 	printf("-|%5.2s|\n", "ciao");
+	printf("cont: %d\n", cont);
 
 	printf("Width+pointsolo: 5.:\n");
 	ft_print("+|%5.s|\n", "ciao");
