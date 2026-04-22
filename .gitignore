@@ -2,5 +2,5 @@
 *.swp
 test*
 *.txt
-a.out
+*a.out
 *.a
