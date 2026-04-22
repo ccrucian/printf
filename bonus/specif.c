@@ -41,8 +41,8 @@ void	handle_s(va_list list, t_opt *opt, int *cont)
 
 	s = va_arg(list, char *);
 	len = ft_strlen(s);
-	//if (opt->prec > 0 && len > opt->prec)
-	//	len -= prec;
+	if (opt->prec > 0 && len > opt->prec)
+		len -= opt->prec;
 	if (len >= opt->width)
 		put_str_prec(s, cont, opt->prec);
 	else if (opt->width > len)

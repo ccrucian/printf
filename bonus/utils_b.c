@@ -29,12 +29,12 @@ void	padding(int width, int *cont, int len, int prec)
 	if (prec < 0)
 	{
 		i_pad = width - len;
-		(*cont) += i_pad;
+		put_pad(i_pad, cont);
 	}
-	else if (prec > 0 && len > prec)
+	else if (prec > 0)
 	{
-		i_pad = width + (len - prec);
-		(*cont) += i_pad;
+		i_pad = width - len;
+		put_pad(i_pad, cont);
 	}
 	else if (prec == 0)
 	{

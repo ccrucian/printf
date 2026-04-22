@@ -31,7 +31,7 @@ void 	put_char(const char c, int *cont);
 //	Funzioni in utils_b.c
 void	put_str_prec(char const *s, int *cont, int prec); 
 void	padding(int width, int *cont, int len, int prec);
-void	put_pad(int i_pad);
+void	put_pad(int i_pad, int *cont);
 int	ft_strlen(char const *s);
 
 # endif

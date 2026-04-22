@@ -49,41 +49,68 @@ void	put_char(const char c, int *cont)
 
 int	main(void)
 {
-	ft_print("%5s\n", "ciao");
-	printf("len maggiore di width ( width < len:\n");
-	ft_print(">|%2s|\n", "ciao");
-	printf("-|%2s|\n", "ciao");
+	int	cont1;
+	int	cont2;
 
+	printf("len maggiore di width ( width < len:\n");
+	cont1 = ft_print(">|%2s|\n", "ciao");
+	cont2 = printf("-|%2s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
+	
 	printf("Width=6:\n");
-	ft_print(">|%6s|\n", "ciao");
-	printf("-|%6s|\n", "ciao");
+	cont1 = ft_print(">|%6s|\n", "ciao");
+	cont2 = printf("-|%6s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	printf("Width=-6:\n");
-	ft_print(">|%-6s|\n", "ciao");
-	printf("-|%-6s|\n", "ciao");
+	cont1 = ft_print(">|%-6s|\n", "ciao");
+	cont2 = printf("-|%-6s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	printf("Solo point.:\n");
-	ft_print("+|%.s|\n", "ciao");
-	printf("-|%.s|\n", "ciao");
+	cont1 = ft_print("+|%.s|\n", "ciao");
+	cont2 = printf("-|%.s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	printf("Prec: .2:\n");
-	ft_print(">|%.2s|\n", "ciao");
-	printf("-|%.2s|\n", "ciao");
+	cont1 = ft_print(">|%.2s|\n", "ciao");
+	cont2 = printf("-|%.2s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	printf("Width+prec: 5.2:\n");
-	int cont = ft_print("+|%5.2s|", "ciao");
-	printf("-|%5.2s|\n", "ciao");
-	printf("cont: %d\n", cont);
+	cont1 = ft_print("+|%5.2s|\n", "ciao");
+	cont2 = printf("-|%5.2s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
-	printf("Width+pointsolo: 5.:\n");
-	ft_print("+|%5.s|\n", "ciao");
-	printf("-|%5.s|\n", "ciao");
+	printf("Width+pointsolo con -: -5.:\n");
+	cont1 = ft_print("+|%-5.s|\n", "ciao");
+	cont2 = printf("-|%-5.s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	printf("Width minore len+prec: 3.2:\n");
-	ft_print("+|%3.2s|\n", "ciao");
-	printf("-|%3.2s|\n", "ciao");
+	cont1 = ft_print("+|%3.2s|\n", "ciao");
+	cont2 = printf("-|%3.2s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
+	printf("Width minore len+prec e prec > len: -3.6:\n");
+	cont1 = ft_print("+|%-3.6s|\n", "ciao");
+	cont2 = printf("-|%-3.6s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
+	printf("Width maggiore len+prec e prec > len: -6.5\n");
+	cont1 = ft_print("+|%-6.5s|\n", "ciao");
+	cont2 = printf("-|%-6.5s|\n", "ciao");
+	printf("%d\n", cont1);
+	printf("%d\n\n", cont2);
 
 	return (0);
 }
