@@ -1,0 +1,6 @@
+*.gch
+*.swp
+test*
+*.txt
+a.out
+*.a
