@@ -3,7 +3,7 @@
 #include "bonus.h"
 #include <stdarg.h>
 
-int	ft_print(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	int	i;
 	int	cont;
@@ -15,14 +15,17 @@ int	ft_print(const char *s, ...)
 	va_start(list, s);
 	while (s[i])
 	{
-		if (s[i] == '%')
+		if (s[i] != '%')
+		{
+			put_char(s[i], &cont);
+			i++;
+		}
+		else
 		{
 			ft_parser(&s[++i], &opt);
 			read_spec(list, &opt, &cont);
 			iter_opt(&s[i], &i);
 		}
-		put_char(s[i], &cont);
-		i++;
 	}
 	va_end(list);
 	return (cont);
@@ -33,7 +36,7 @@ void	iter_opt(const char *s, int *i)
 	int	n;
 
 	n = 0;
-	while (!is_specifier(s[n]))
+	while (s[n] && !is_specifier(s[n]))
 	{
 		n++;
 	}
@@ -52,7 +55,7 @@ void	put_char(const char c, int *cont)
 	int	cont1;
 	int	cont2;
 
-	cont1 = ft_print("%7.3s\n", "ciao");
+	cont1 = ft_printf("%7.3s\n", "ciao");
 	cont2 = printf("%7.3s\n", "ciao");
 	printf("%d\n", cont1);
 	printf("%d\n", cont2);

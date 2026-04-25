@@ -1,5 +1,5 @@
-# ifndef BONUS_H
-#define BONUS_H
+#ifndef BONUS_H
+# define BONUS_H
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -14,7 +14,7 @@ typedef struct	struct_opt
 	char	spec;
 }	t_opt;
 
-int	ft_print(char const *s, ...);
+int	ft_printf(char const *s, ...);
 void	read_spec(va_list list, t_opt *opt, int *cont);
 void	handle_percent(t_opt *opt, int *cont);
 void	handle_c(int c, t_opt *opt, int *cont);
@@ -22,6 +22,9 @@ void	handle_s(char const *s, t_opt *opt, int *cont);
 void	handle_d_i(int arg, t_opt *opt, int *cont);
 void	iter_opt(const char *s, int *i);
 void 	put_char(const char c, int *cont);
+int	sign_(int n);
+void	set_len_di_zerospec(int *len, int *zero, int n, t_opt *opt);
+void	check_put_sign_set_positive(int *n, int *cont);
 
 //	parser.c
 void	ft_parser(char const *s, t_opt *opt);
@@ -47,4 +50,4 @@ void	padding(int width, int *cont, int len, int prec);
 void	put_pad(int i_pad, int *cont);
 int	ft_strlen(char const *s);
 
-# endif
+#endif

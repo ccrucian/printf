@@ -73,7 +73,7 @@ void	parse_flag(char const *s, t_opt *opt)
 {
 	char	t = 'c';
 
-	ft_print("%c\n", t);
+	ft_printf("%c\n", t);
 	printf("%c\n", t);
 	return (0);
-}*/
+*/

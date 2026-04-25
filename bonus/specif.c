@@ -18,6 +18,7 @@ void	read_spec(va_list list, t_opt *opt, int *cont)
 void	handle_c(int c, t_opt *opt, int *cont)
 {
 	int	width;
+	char	ch;
 
 	width = opt->width - 1;
 	while (width > 0 && opt->minus == 0)
@@ -26,7 +27,8 @@ void	handle_c(int c, t_opt *opt, int *cont)
 		width--;
 		(*cont)++;
 	}
-	write(1, &c, 1);
+	ch = c;
+	write(1, &ch, 1);
 	(*cont)++;
 	while (width > 0 && opt->minus == 1)
 	{
@@ -36,10 +38,21 @@ void	handle_c(int c, t_opt *opt, int *cont)
 	}
 }
 
+static int	null_str(char const **s)
+{
+	if (!(*s))
+	{	
+		(*s) = "(null)";
+		return (1);
+	}
+	return (0);
+}
+
 void	handle_s(char const *s, t_opt *opt, int *cont)
 {
 	int	len;
 
+	null_str(&s);
 	len = ft_strlen(s);
 	if (opt->prec > 0 && len > opt->prec)
 		len = opt->prec;
@@ -60,18 +73,32 @@ void	handle_s(char const *s, t_opt *opt, int *cont)
 	}
 }
 
+void	set_len_di_zerosprec(int *len, int *zero, int n, t_opt *opt)
+{
+	(*len) = count_digits(n);
+	*zero = 0;
+	if (opt->prec > *len)
+	{
+		*zero = opt->prec - (*len - sign_(n));
+		*len = *len + *zero;
+	}	
+}
+
+/*helper per norminettare */
+static void	ft(int *n, int *cont, int i_pad)
+{
+	check_put_sign_set_positive(n, cont);
+	put_pad_zero(i_pad, cont);
+}
+
 void	handle_d_i(int	n, t_opt *opt, int *cont)
 {
 	int	len;
 	int	zero;
 
-	len = count_digits(n);
-	zero = 0;
-	if (opt->prec > len)
-	{
-		zero = opt->prec - len;
-		len = len + zero;
-	}
+	if (n == 0 && opt->prec == 0 && opt->width == 0)
+		return ;
+	set_len_di_zerosprec(&len, &zero, n, opt);
 	if (len >= opt->width)
 		put_nbr(n, cont, zero);
 	else if (opt->width > len)
@@ -84,7 +111,7 @@ void	handle_d_i(int	n, t_opt *opt, int *cont)
 		else
 		{
 			if (opt->zero == 1 && opt->point == 0)
-				put_pad_zero((opt->width - len), cont);
+				ft(&n, cont, (opt->width - len));
 			else
 				put_pad((opt->width - len), cont);
 			put_nbr(n, cont, zero);
