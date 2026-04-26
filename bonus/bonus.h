@@ -25,6 +25,15 @@ void 	put_char(const char c, int *cont);
 int	sign_(int n);
 void	set_len_di_zerospec(int *len, int *zero, int n, t_opt *opt);
 void	check_put_sign_set_positive(int *n, int *cont);
+void	handle_p(unsigned long ptr, t_opt *opt, int *cont);
+void	put_hex_p(unsigned long ptr, int *cont, int n);
+int	count_hex(unsigned long n);
+void	handle_xX(unsigned int n, t_opt *opt, int *cont);
+void	put_hex_xX(unsigned int n, int *cont, int zero, const char *base);
+void	handle_u(unsigned int n, t_opt *opt, int *cont);
+void	put_un(unsigned int n, int *cont, int zero);
+int	count_digits_u(unsigned int n);
+
 
 //	parser.c
 void	ft_parser(char const *s, t_opt *opt);

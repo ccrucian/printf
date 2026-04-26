@@ -66,30 +66,3 @@ void	put_pad_zero(int i_pad, int *cont)
 		i_pad--;
 	}
 }
-
-/*int	main(void)
-{
-	ft_printf("+|%10.5d|\n", 23);
-	printf("-|%10.5d|\n", 23);
-	
-	ft_printf("+|%-10.5d|\n", 23);
-	printf("-|%-10.5d|\n", 23);
-		
-	ft_printf("+|%.5d|\n", 23);
-	printf("-|%.5d|\n", 23);
-	
-	ft_printf("+|%3.5d|\n", -23);
-	printf("-|%3.5d|\n", -23);
-	
-	ft_printf("+|%3.4d|\n", 0);
-	printf("-|%3.4d|\n", 0);
-
-	ft_printf("+|%010d|\n", -23);
-	printf("-|%010d|\n", -23);
-
-	ft_printf("+|%05d|\n", -23);
-	printf("-|%05d|\n", -23);
-
-
-	return (0);
-}*/
