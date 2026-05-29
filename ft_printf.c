@@ -1,7 +1,16 @@
-#include "printf.h"
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 14:48:32 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/05/29 15:19:47 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 
 int	ft_printf(const char *s, ...)
 {
@@ -16,12 +25,16 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			leggi_specificatore(s, i++, list, &cont);
+			i++;
+			leggi_specificatore(s, i, list, &cont);
 			i++;
 		}
-		write(1, &s[i], 1);
-		cont++;
-		i++;
+		else
+		{
+			write(1, &s[i], 1);
+			cont++;
+			i++;
+		}
 	}
 	va_end(list);
 	return (cont);
@@ -29,7 +42,6 @@ int	ft_printf(const char *s, ...)
 
 void	leggi_specificatore(char const *s, int i, va_list list, int *cont)
 {
-	i++;
 	if (s[i] == 'c')
 		char_put(list, cont);
 	if (s[i] == 's')
@@ -53,15 +65,18 @@ void	leggi_specificatore(char const *s, int i, va_list list, int *cont)
 
 /*int	main(void)
 {
-	int	c = 8734684;
-	unsigned int	n = -1;
-	char	s[] = "stai";
-	int	cont;
-
-	cont = ft_printf("ciao %X come %s oppure %%, %u?", c, s, n);
-	write(1, "\n", 1);
-	printf("cont : %d\n", cont);
-	cont = printf("ciao %x come %s oppure %%, %u?\n", c, s, n);
-	printf("cont : %d\n", cont);
+	char	c;
+	int	n;
+	
+	c = '0';
+	printf("\%%c, '0':\n");
+	n = ft_printf("%c", '0');
+	printf("\n");
+	printf("%d\n", n);
+	printf("\%%c, c:\n");
+	n = ft_printf("%c", c);
+	printf("\n");
+	printf("%d\n", n);
+	
 	return (0);
 }*/

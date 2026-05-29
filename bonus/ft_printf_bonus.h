@@ -1,8 +1,9 @@
-#ifndef BONUS_H
-# define BONUS_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
 typedef struct	struct_opt
 {

@@ -1,16 +1,30 @@
 CC = cc
+CFLAGS = -Wall -Wextra -Werror
+NAME = libftprintf.a
+SRC_DIR = srcs
 
-SRC = ft_printf.c \
+SRCS = ft_printf.c \
       utils.c \
       2utils.c 
 
-INC = printf.h
+INC = ft_printf.h
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+BONUS_DIR = bonus
 
-NAME = ft_printf.a
+SRCS_BONUS = $(BONUS_DIR)/dutils_b_bonus.c \
+		$(BONUS_DIR)/handle_p_bonus.c \
+		$(BONUS_DIR)/handle_u_bonus.c \
+		$(BONUS_DIR)/handle_x_bonus.c \
+		$(BONUS_DIR)/parser_bonus.c \
+		$(BONUS_DIR)/parsing_bonus.c \
+		$(BONUS_DIR)/specif_bonus.c \
+		$(BONUS_DIR)/start_bonus.c \
+		$(BONUS_DIR)/utils_b_bonus.c
+		
+OBJ_BONUS = $(SRCS_BONUS:.c=.o)
+
 
 all: $(NAME)
 
@@ -20,12 +34,16 @@ $(NAME): $(OBJ)
 %.o: %.c $(INC)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -f $(OBJ)
+bonus: $(OBJ_BONUS)
+	rm -f $(NAME)
+	ar rcs $(NAME) $(OBJ_BONUS)	
 
+clean:
+	rm -f $(OBJ) $(OBJ_BONUS)
+ 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

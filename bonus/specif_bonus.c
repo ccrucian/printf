@@ -1,7 +1,16 @@
-#include "bonus.h"
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   specif_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 15:00:15 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/05/29 15:00:26 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf_bonus.h"
 
 void	read_spec(va_list list, t_opt *opt, int *cont)
 {

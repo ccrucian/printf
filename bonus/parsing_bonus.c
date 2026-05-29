@@ -1,6 +1,16 @@
-#include "bonus.h"
-#include <stdarg.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 15:00:29 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/05/29 15:00:35 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf_bonus.h"
 
 void	parse_specifier(char const *s, t_opt *opt)
 {

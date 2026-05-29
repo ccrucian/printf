@@ -1,7 +1,16 @@
-#include "bonus.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_x_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 15:00:50 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/05/29 15:00:57 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf_bonus.h"
 
 static void	set_base(char spec, const char **base)
 {

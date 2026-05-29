@@ -1,14 +1,25 @@
-#include "printf.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdarg.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 14:47:53 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/05/29 15:55:22 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	char_put(va_list list, int *cont)
+#include "ft_printf.h"
+
+void	char_put(va_list list, int *cont)//
 {
 	int	n;
+	char	c;
 
 	n = va_arg(list, int);
-	write(1, &n, 1);
+	c = (char)n;
+	write(1, &c, 1);
 	(*cont)++;
 }
 
@@ -30,12 +41,12 @@ void	open_arg(va_list list, int *cont, int n)
 	if (n == 3)
 	{
 		n = va_arg(list, int);
-		(*cont) += (put_hex(n, &i));
+		(*cont) += (put_hex((unsigned long)(unsigned int)n, &i));
 	}
 	if (n == 4)
 	{
 		n = va_arg(list, int);
-		(*cont) += (put_hex_up(n, &i));
+		(*cont) += (put_hex_up((unsigned long)(unsigned int)n, &i));
 	}
 }
 
