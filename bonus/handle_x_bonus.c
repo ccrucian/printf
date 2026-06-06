@@ -36,7 +36,7 @@ void	handle_xX(unsigned int n, t_opt *opt, int *cont)
 		zero = opt->prec - len;
 		len = len + zero;
 	}
-	if (len >= opt-> width)
+	if (len >= opt->width)
 		put_hex_xX(n, cont, zero, base);
 	else if (opt->width > len)
 	{

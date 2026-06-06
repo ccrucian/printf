@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-typedef struct	struct_opt
+typedef struct	s_opt
 {
 	int	minus;
 	int	zero;

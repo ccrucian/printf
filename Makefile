@@ -5,7 +5,8 @@ SRC_DIR = srcs
 
 SRCS = ft_printf.c \
       utils.c \
-      2utils.c 
+      utils_2.c \
+	  utils_3.c
 
 INC = ft_printf.h
 
