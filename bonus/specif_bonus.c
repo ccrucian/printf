@@ -90,13 +90,16 @@ void	handle_s(char const *s, t_opt *opt, int *cont)
 
 void	set_len_di_zerosprec(int *len, int *zero, int n, t_opt *opt)
 {
-	(*len) = count_digits(n);
+	int	digits;
+
+	*len = count_digits(n);
 	*zero = 0;
-	if (opt->prec > *len)
+	digits = *len - sign_(n);
+	if (opt->prec > digits)
 	{
-		*zero = opt->prec - (*len - sign_(n));
+		*zero = opt->prec - digits;
 		*len = *len + *zero;
-	}	
+	}
 }
 
 /*helper per norminettare */

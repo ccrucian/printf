@@ -47,9 +47,8 @@ void	handle_xX(unsigned int n, t_opt *opt, int *cont)
 		}
 		else
 		{
-			if (opt->width == 1 && opt->point == 0)
+			if (opt->zero == 1 && opt->point == 0)
 				put_pad_zero((opt->width - len), cont);
-				
 			else
 				put_pad((opt->width - len), cont);
 			put_hex_xX(n, cont, zero, base);

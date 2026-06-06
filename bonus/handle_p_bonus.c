@@ -62,32 +62,34 @@ void	 handle_p(unsigned long p, t_opt *opt, int *cont)
 		if (opt->minus == 0)
 		{
 			put_pad((opt->width - (n + 2)), cont);
-			put_hex_p(p, cont, n);
+			put_hex_p(p, cont);
 		}
 		else if (opt->minus == 1)
 		{
-			put_hex_p(p, cont, n);
+			put_hex_p(p, cont);
 			put_pad((opt->width - (n + 2)), cont);
 		}
 	}
 	else
-		put_hex_p(p, cont, n);
+		put_hex_p(p, cont);
 }
 
-void	put_hex_p(unsigned long ptr, int *cont, int n)
+void	put_hex_digits(unsigned long ptr, int *cont)
 {
 	char	*base;
 
 	base = "0123456789abcdef";
-	n--;
-	if (n == 1)
-		put_char('0', cont);
-	if (n == 0)
-		put_char('x', cont);
 	if (ptr >= 16)
-		put_hex_p(ptr / 16, cont, n);
-	(*cont)++;
+		put_hex_digits(ptr / 16, cont);
 	write(1, &base[ptr % 16], 1);
+	(*cont)++;
+}
+
+void	put_hex_p(unsigned long ptr, int *cont)
+{
+	put_char('0', cont);
+	put_char('x', cont);
+	put_hex_digits(ptr, cont);
 }
 
 /*int	main(void)

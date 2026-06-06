@@ -56,10 +56,11 @@ void	parse_width(char const *s,t_opt *opt)
 	int	i;
 
 	i = 0;
-	while (s[i] && !is_specifier(s[i]) && s[i] != '.')
+	while (s[i] == '-' || s[i] == '0')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9' && s[i] != '.')
 	{
-		if (s[i] >= '0' && s[i] <= '9')
-			opt->width = (opt->width * 10) + (s[i] - '0');
+		opt->width = (opt->width * 10) + (s[i] - '0');
 		i++;
 	}
 }
@@ -69,14 +70,16 @@ void	parse_flag(char const *s, t_opt *opt)
 	int	i;
 
 	i = 0;
-	while (s[i] && !is_specifier(s[i]))
+	while (s[i] == '-' || s[i] == '0')
 	{
 		if (s[i] == '-')
 			opt->minus = 1;
-		if (s[i] == '0' && !is_digit(s[i + 1]) && s[i - 1] != '.')
+		if (s[i] == '0')
 			opt->zero = 1;
 		i++;
 	}
+	if (opt->minus == 1)
+		opt->zero = 0;
 }
 
 /*int	main(void)
