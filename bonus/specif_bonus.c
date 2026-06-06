@@ -12,7 +12,7 @@
 
 #include "ft_printf_bonus.h"
 
-void	read_spec(va_list list, t_opt *opt, int *cont)
+void	call_print_functions(va_list list, t_opt *opt, int *cont)
 {
 	if (opt->spec == '%')
 		put_char('%', cont);

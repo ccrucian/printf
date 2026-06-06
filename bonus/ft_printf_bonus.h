@@ -16,7 +16,7 @@ typedef struct	struct_opt
 }	t_opt;
 
 int	ft_printf(char const *s, ...);
-void	read_spec(va_list list, t_opt *opt, int *cont);
+void	call_print_functions(va_list list, t_opt *opt, int *cont);
 void	handle_percent(t_opt *opt, int *cont);
 void	handle_c(int c, t_opt *opt, int *cont);
 void	handle_s(char const *s, t_opt *opt, int *cont);
@@ -38,7 +38,7 @@ int	count_digits_u(unsigned int n);
 
 //	parser.c
 void	ft_parser(char const *s, t_opt *opt);
-void	set_opt(t_opt *opt);
+void	initialize_options(t_opt *opt);
 int	is_specifier(char c);
 int	is_digit(char c);
 

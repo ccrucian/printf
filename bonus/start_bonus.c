@@ -32,7 +32,7 @@ int	ft_printf(const char *s, ...)
 		else
 		{
 			ft_parser(&s[++i], &opt);
-			read_spec(list, &opt, &cont);
+			call_print_functions(list, &opt, &cont);
 			iter_opt(&s[i], &i);
 		}
 	}

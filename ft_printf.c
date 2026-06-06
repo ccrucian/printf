@@ -29,13 +29,28 @@ int	ft_printf(const char *s, ...)
 			i++;
 		}
 		else
-		{
-			ft_parser(&s[++i], &(t_opt){0});
-			leggi_specificatore(s, &i, list, &cont);
-		}
+			find_specifier(s, &i, list, &cont);
 	}
 	va_end(list);
 	return (cont);
+}
+
+void	find_specifier(char const *s, int *i, va_list list, int *cont)
+{
+	t_opt	opt;
+
+	ft_parser(&s[*i], &opt);
+	call_print_functions(list, &opt, cont);
+	iter_opt(&s[*i], i);
+}
+
+void	ft_parser(char const *s, t_opt *opt)
+{
+	initialize_options(opt);
+	parse_flag(s, opt);
+	parse_width(s, opt);
+	parse_point_precision(s, opt);
+	parse_specifier(s, opt);
 }
 
 void	put_char(const char c, int *cont)
@@ -57,16 +72,10 @@ void	iter_opt(const char *s, int *i)
 	*i += n;
 }
 
-void	ft_parser(char const *s, t_opt *opt)
-{
-	set_opt(opt);
-	parse_flag(s, opt);
-	parse_width(s, opt);
-	parse_point_precision(s, opt);
-	parse_specifier(s, opt);
-}
-
-void	set_opt(t_opt *opt)
+/*
+*Set options to default values 
+*/
+void	initialize_options(t_opt *opt)
 {
 	opt->minus = 0;
 	opt->zero = 0;
@@ -157,16 +166,7 @@ void	parse_specifier(const char *s, t_opt *opt)
 	}
 }
 
-void	leggi_specificatore(char const *s, int *i, va_list list, int *cont)
-{
-	t_opt	opt;
-
-	ft_parser(&s[*i], &opt);
-	read_spec(list, &opt, cont);
-	iter_opt(&s[*i], i);
-}
-
-void	read_spec(va_list list, t_opt *opt, int *cont)
+void	call_print_functions(va_list list, t_opt *opt, int *cont)
 {
 	if (opt->spec == '%')
 		put_char('%', cont);
