@@ -26,7 +26,7 @@ void	handle_xX(unsigned int n, t_opt *opt, int *cont)
 	int	zero;
 	const char	*base;
 	
-	if ( n == 0 && opt->prec == 0 && opt->width == 0)
+	if (n == 0 && opt->prec == 0 && opt->width == 0)
 		return ;
 	set_base(opt->spec, &base);
 	len = count_hex((unsigned long)n);
@@ -57,7 +57,7 @@ void	handle_xX(unsigned int n, t_opt *opt, int *cont)
 }
 
 void	put_hex_xX(unsigned int n, int *cont, int zero, const char *base)
-{ 
+{
 	if (zero > 0)
 		put_pad_zero(zero, cont);
 	if (n >= 16)

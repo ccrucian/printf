@@ -42,8 +42,8 @@ void	parse_point_precision(const char *s, t_opt *opt)
 			i++;
 			while (s[i] >= '0' && s[i] <= '9')
 			{
-			      opt->prec = (opt->prec * 10) + (s[i] - '0');
-			      i++;
+				opt->prec = (opt->prec * 10) + (s[i] - '0');
+				i++;
 			}
 			break;
 		}
@@ -51,7 +51,7 @@ void	parse_point_precision(const char *s, t_opt *opt)
 	}
 }
 
-void	parse_width(char const *s,t_opt *opt)
+void	parse_width(char const *s, t_opt *opt)
 {
 	int	i;
 

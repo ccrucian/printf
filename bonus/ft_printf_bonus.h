@@ -1,11 +1,11 @@
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <unistd.h>
 
-typedef struct	s_opt
+typedef struct s_opt
 {
 	int	minus;
 	int	zero;
@@ -22,9 +22,9 @@ void	handle_c(int c, t_opt *opt, int *cont);
 void	handle_s(char const *s, t_opt *opt, int *cont);
 void	handle_d_i(int arg, t_opt *opt, int *cont);
 void	iter_opt(const char *s, int *i);
-void 	put_char(const char c, int *cont);
+void	put_char(const char c, int *cont);
 int	sign_(int n);
-void	set_len_di_zerospec(int *len, int *zero, int n, t_opt *opt);
+void	set_len_di_zerosprec(int *len, int *zero, int n, t_opt *opt);
 void	check_put_sign_set_positive(int *n, int *cont);
 void	handle_p(unsigned long ptr, t_opt *opt, int *cont);
 void	put_hex_p(unsigned long ptr, int *cont);
@@ -55,7 +55,7 @@ void	put_nbr(int n, int *cont, int zero);
 void	put_pad_zero(int i_pad, int *cont);
 
 //	utils_b.c
-void	put_str_prec(char const *s, int *cont, int prec); 
+void	put_str_prec(char const *s, int *cont, int prec);
 void	padding(int width, int *cont, int len, int prec);
 void	put_pad(int i_pad, int *cont);
 int	ft_strlen(char const *s);
