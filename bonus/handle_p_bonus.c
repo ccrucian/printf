@@ -6,7 +6,7 @@
 /*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 15:01:13 by ccrucian          #+#    #+#             */
-/*   Updated: 2026/05/29 15:05:18 by ccrucian         ###   ########.fr       */
+/*   Updated: 2026/06/07 15:24:50 by ccrucian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	put_null_ptr(t_opt *opt, int *cont)
 {
 	char	*s;
-	
+
 	s = "(nil)";
 	if (opt->width > 5)
 	{

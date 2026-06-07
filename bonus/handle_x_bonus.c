@@ -6,7 +6,7 @@
 /*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 15:00:50 by ccrucian          #+#    #+#             */
-/*   Updated: 2026/05/29 15:00:57 by ccrucian         ###   ########.fr       */
+/*   Updated: 2026/06/07 15:26:02 by ccrucian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_xx(unsigned int n, t_opt *opt, int *cont)
 	int			len;
 	int			zero;
 	const char	*base;
-	
+
 	if (n == 0 && opt->prec == 0 && opt->width == 0)
 		return ;
 	set_base(opt->spec, &base);

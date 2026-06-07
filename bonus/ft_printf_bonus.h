@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccrucian <ccrucian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/07 15:14:45 by ccrucian          #+#    #+#             */
+/*   Updated: 2026/06/07 15:30:51 by ccrucian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
 
@@ -6,15 +18,15 @@
 
 typedef struct s_opt
 {
-	int	minus;
-	int	zero;
-	int	width;
-	int	point;
-	int	prec;
 	char	spec;
+	int		minus;
+	int		zero;
+	int		width;
+	int		point;
+	int		prec;
 }	t_opt;
 
-int	ft_printf(char const *s, ...);
+int		ft_printf(char const *s, ...);
 void	call_print_functions(va_list list, t_opt *opt, int *cont);
 void	handle_percent(t_opt *opt, int *cont);
 void	handle_c(int c, t_opt *opt, int *cont);
@@ -22,31 +34,31 @@ void	handle_s(char const *s, t_opt *opt, int *cont);
 void	handle_d_i(int arg, t_opt *opt, int *cont);
 void	iter_opt(const char *s, int *i);
 void	put_char(const char c, int *cont);
-int	sign_(int n);
+int		sign_(int n);
 void	set_len_di_zerosprec(int *len, int *zero, int n, t_opt *opt);
 void	check_put_sign_set_positive(int *n, int *cont);
 void	handle_p(unsigned long ptr, t_opt *opt, int *cont);
 void	put_hex_p(unsigned long ptr, int *cont);
-int	count_hex(unsigned long n);
+int		count_hex(unsigned long n);
 void	handle_xx(unsigned int n, t_opt *opt, int *cont);
 void	put_hex_xx(unsigned int n, int *cont, int zero, const char *base);
 void	handle_u(unsigned int n, t_opt *opt, int *cont);
 void	put_un(unsigned int n, int *cont, int zero);
-int	count_digits_u(unsigned int n);
+int		count_digits_u(unsigned int n);
 void	ft_parser(char const *s, t_opt *opt);
 void	initialize_options(t_opt *opt);
-int	is_specifier(char c);
-int	is_digit(char c);
+int		is_specifier(char c);
+int		is_digit(char c);
 void	parse_specifier(const char *s, t_opt *opt);
 void	parse_point_precision(const char *s, t_opt *opt);
 void	parse_width(const char *s, t_opt *opt);
 void	parse_flag(const char *s, t_opt *opt);
-int	count_digits(int n);
+int		count_digits(int n);
 void	put_nbr(int n, int *cont, int zero);
 void	put_pad_zero(int i_pad, int *cont);
 void	put_str_prec(char const *s, int *cont, int prec);
 void	padding(int width, int *cont, int len, int prec);
 void	put_pad(int i_pad, int *cont);
-int	ft_strlen(char const *s);
+int		ft_strlen(char const *s);
 
 #endif
