@@ -15,9 +15,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdio.h>
 # include <unistd.h>
-# include <limits.h>
 
 int		ft_printf(const char *s, ...);
 int		put_nbr(int n, int *i);

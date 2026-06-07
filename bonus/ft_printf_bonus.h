@@ -2,7 +2,6 @@
 # define FT_PRINTF_BONUS_H
 
 # include <stdarg.h>
-# include <stdio.h>
 # include <unistd.h>
 
 typedef struct s_opt
