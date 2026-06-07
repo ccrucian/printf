@@ -13,7 +13,7 @@ void	call_print_functions(va_list list, t_opt *opt, int *cont)
 	if (opt->spec == 'p')
 		handle_p(va_arg(list, unsigned long), opt, cont);
 	if (opt->spec == 'x' || opt->spec == 'X')
-		handle_xX(va_arg(list, unsigned int), opt, cont);
+		handle_xx(va_arg(list, unsigned int), opt, cont);
 	if (opt->spec == 'u')
 		handle_u(va_arg(list, unsigned int), opt, cont);
 }
