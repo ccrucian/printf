@@ -209,16 +209,736 @@ This structure makes the bonus parser more organized because all relevant format
 
 ## Bonus
 
-The repository includes a bonus implementation with a dedicated `bonus` rule in the Makefile.
+The repository also includes a bonus implementation, compiled through the `bonus` rule of the Makefile:
 
-The bonus parser is designed to handle additional formatting options such as:
+```bash
+make bonus
+```
 
-* left alignment with `-`
-* zero padding with `0`
-* minimum field width
-* precision with `.`
+The bonus part extends the mandatory `ft_printf` by adding support for a more advanced parsing of the format string.
 
-The use of the `t_opt` structure allows the parser to separate format analysis from actual printing, which makes the code easier to extend and maintain.
+In the mandatory part, the parser only needs to recognize a conversion specifier such as `%d`, `%s`, or `%x`.
+
+In the bonus part, the parser must also detect formatting options placed between the `%` character and the conversion specifier.
+
+For this reason, the bonus implementation uses a dedicated structure:
+
+```c
+typedef struct s_opt
+{
+    int     minus;
+    int     zero;
+    int     width;
+    int     point;
+    int     prec;
+    char    spec;
+}   t_opt;
+```
+
+This structure stores all the information extracted from the format string before calling the correct printing function.
+
+The bonus parser follows this order:
+
+1. Initialize all options to their default values.
+2. Parse the flags, such as `-` and `0`.
+3. Parse the minimum field width.
+4. Parse the precision introduced by `.`.
+5. Parse the final conversion specifier.
+
+This makes the code more modular because the parsing step is separated from the printing step.
+
+### Supported Bonus Options
+
+The implemented bonus options are:
+
+| Option       | Meaning                                                        |
+| ------------ | -------------------------------------------------------------- |
+| `-`          | Left-aligns the output inside the given width                  |
+| `0`          | Pads the output with zeroes instead of spaces when allowed     |
+| `width`      | Defines the minimum number of characters to print              |
+| `.precision` | Defines the precision, whose meaning depends on the conversion |
+
+### The `-` Flag
+
+The `-` flag left-aligns the printed value inside the field width.
+
+Without `-`, padding is added before the value:
+
+```c
+ft_printf("%10d", 42);
+```
+
+Output:
+
+```text
+        42
+```
+
+With `-`, the value is printed first and the padding is added after it:
+
+```c
+ft_printf("%-10d", 42);
+```
+
+Output:
+
+```text
+42        
+```
+
+This flag mainly affects conversions where a minimum width is provided.
+
+It applies to:
+
+| Conversion  | Effect of `-`                                    |
+| ----------- | ------------------------------------------------ |
+| `%c`        | Prints the character first, then spaces          |
+| `%s`        | Prints the string first, then spaces             |
+| `%d` / `%i` | Prints the number first, then spaces             |
+| `%u`        | Prints the unsigned number first, then spaces    |
+| `%x` / `%X` | Prints the hexadecimal number first, then spaces |
+| `%p`        | Prints the pointer first, then spaces            |
+
+The `-` flag has priority over the `0` flag.
+
+For example:
+
+```c
+ft_printf("%-05d", 42);
+```
+
+In this case, the output must be left-aligned, so the `0` flag is ignored and spaces are used for padding.
+
+### The `0` Flag
+
+The `0` flag pads the value with zeroes instead of spaces.
+
+Example:
+
+```c
+ft_printf("%05d", 42);
+```
+
+Output:
+
+```text
+00042
+```
+
+This flag is useful mainly for numeric conversions.
+
+It applies to:
+
+| Conversion  | Effect of `0`                             |
+| ----------- | ----------------------------------------- |
+| `%d` / `%i` | Adds zeroes before the number             |
+| `%u`        | Adds zeroes before the unsigned number    |
+| `%x` / `%X` | Adds zeroes before the hexadecimal number |
+
+The `0` flag does not have priority when `-` is present.
+
+Example:
+
+```c
+ft_printf("%-05d", 42);
+```
+
+The `-` flag wins, so the result is left-aligned and padded with spaces:
+
+```text
+42   
+```
+
+The `0` flag is also ignored when precision is used with numeric conversions.
+
+Example:
+
+```c
+ft_printf("%08.5d", 42);
+```
+
+In this case, precision controls the number of digits, while width controls the final field size.
+
+The expected logic is:
+
+1. Precision adds leading zeroes to the number itself.
+2. Width adds spaces to reach the minimum field size.
+3. The `0` flag is ignored because precision is present.
+
+So the output is:
+
+```text
+   00042
+```
+
+### Width
+
+The width defines the minimum number of characters that must be printed.
+
+Example:
+
+```c
+ft_printf("%8s", "Hi");
+```
+
+Output:
+
+```text
+      Hi
+```
+
+The string has length 2, but the width is 8, so 6 spaces are added before it.
+
+Width does not cut the output. It only adds padding if the printed value is shorter than the requested width.
+
+Example:
+
+```c
+ft_printf("%3s", "Hello");
+```
+
+Output:
+
+```text
+Hello
+```
+
+Since the string is already longer than the width, no padding is added.
+
+Width applies to:
+
+| Conversion  | Effect of width                    |
+| ----------- | ---------------------------------- |
+| `%c`        | Pads around one character          |
+| `%s`        | Pads around the string             |
+| `%d` / `%i` | Pads around the signed integer     |
+| `%u`        | Pads around the unsigned integer   |
+| `%x` / `%X` | Pads around the hexadecimal number |
+| `%p`        | Pads around the pointer address    |
+
+### Precision
+
+Precision is introduced by a dot:
+
+```c
+%.5d
+%.3s
+```
+
+Its meaning depends on the conversion.
+
+For strings, precision defines the maximum number of characters to print.
+
+Example:
+
+```c
+ft_printf("%.3s", "Hello");
+```
+
+Output:
+
+```text
+Hel
+```
+
+For numbers, precision defines the minimum number of digits to print. If the number has fewer digits, zeroes are added before it.
+
+Example:
+
+```c
+ft_printf("%.5d", 42);
+```
+
+Output:
+
+```text
+00042
+```
+
+Precision applies to:
+
+| Conversion  | Effect of precision                  |
+| ----------- | ------------------------------------ |
+| `%s`        | Maximum number of characters printed |
+| `%d` / `%i` | Minimum number of digits             |
+| `%u`        | Minimum number of digits             |
+| `%x` / `%X` | Minimum number of hexadecimal digits |
+
+Precision does not affect `%c` in this implementation.
+
+For `%p`, the implementation handles width and alignment, but pointer formatting keeps the standard `0x` prefix and hexadecimal address representation.
+
+### Interaction Between Flags, Width, and Precision
+
+The formatting options interact in a specific order.
+
+The general rule is:
+
+1. Precision modifies the value itself.
+2. Width defines the total minimum size of the final output.
+3. Padding is added if the output is shorter than the width.
+4. `-` decides whether padding goes before or after the value.
+5. `0` is used only when allowed, mainly for numeric values without precision and without `-`.
+
+Example with width and precision:
+
+```c
+ft_printf("%8.5d", 42);
+```
+
+The number `42` becomes `00042` because of precision.
+
+Then width `8` requires a total length of 8 characters.
+
+Output:
+
+```text
+   00042
+```
+
+Example with left alignment:
+
+```c
+ft_printf("%-8.5d", 42);
+```
+
+The number still becomes `00042`, but the padding is added after the value.
+
+Output:
+
+```text
+00042   
+```
+
+Example with zero padding:
+
+```c
+ft_printf("%08d", 42);
+```
+
+There is no precision and no `-`, so the `0` flag is active.
+
+Output:
+
+```text
+00000042
+```
+
+Example with zero padding and precision:
+
+```c
+ft_printf("%08.5d", 42);
+```
+
+Precision has priority over `0`.
+
+Output:
+
+```text
+   00042
+```
+
+### Conversion-Specific Behavior
+
+#### `%c`
+
+The `%c` conversion prints a single character.
+
+Supported bonus options:
+
+| Option       | Supported           |
+| ------------ | ------------------- |
+| `-`          | Yes                 |
+| `width`      | Yes                 |
+| `0`          | No practical effect |
+| `.precision` | No                  |
+
+Example:
+
+```c
+ft_printf("%5c", 'A');
+```
+
+Output:
+
+```text
+    A
+```
+
+Example:
+
+```c
+ft_printf("%-5c", 'A');
+```
+
+Output:
+
+```text
+A    
+```
+
+#### `%s`
+
+The `%s` conversion prints a string.
+
+Supported bonus options:
+
+| Option       | Supported           |
+| ------------ | ------------------- |
+| `-`          | Yes                 |
+| `width`      | Yes                 |
+| `.precision` | Yes                 |
+| `0`          | No practical effect |
+
+Example:
+
+```c
+ft_printf("%10s", "Hello");
+```
+
+Output:
+
+```text
+     Hello
+```
+
+Example:
+
+```c
+ft_printf("%.3s", "Hello");
+```
+
+Output:
+
+```text
+Hel
+```
+
+Example:
+
+```c
+ft_printf("%8.3s", "Hello");
+```
+
+Output:
+
+```text
+     Hel
+```
+
+Example:
+
+```c
+ft_printf("%-8.3s", "Hello");
+```
+
+Output:
+
+```text
+Hel     
+```
+
+#### `%d` and `%i`
+
+The `%d` and `%i` conversions print signed decimal integers.
+
+Supported bonus options:
+
+| Option       | Supported |
+| ------------ | --------- |
+| `-`          | Yes       |
+| `0`          | Yes       |
+| `width`      | Yes       |
+| `.precision` | Yes       |
+
+Example:
+
+```c
+ft_printf("%6d", 42);
+```
+
+Output:
+
+```text
+    42
+```
+
+Example:
+
+```c
+ft_printf("%06d", 42);
+```
+
+Output:
+
+```text
+000042
+```
+
+Example:
+
+```c
+ft_printf("%.5d", 42);
+```
+
+Output:
+
+```text
+00042
+```
+
+Example:
+
+```c
+ft_printf("%8.5d", 42);
+```
+
+Output:
+
+```text
+   00042
+```
+
+For negative numbers, the sign is part of the printed value.
+
+Example:
+
+```c
+ft_printf("%06d", -42);
+```
+
+Output:
+
+```text
+-00042
+```
+
+#### `%u`
+
+The `%u` conversion prints an unsigned decimal integer.
+
+Supported bonus options:
+
+| Option       | Supported |
+| ------------ | --------- |
+| `-`          | Yes       |
+| `0`          | Yes       |
+| `width`      | Yes       |
+| `.precision` | Yes       |
+
+Example:
+
+```c
+ft_printf("%6u", 42);
+```
+
+Output:
+
+```text
+    42
+```
+
+Example:
+
+```c
+ft_printf("%06u", 42);
+```
+
+Output:
+
+```text
+000042
+```
+
+Example:
+
+```c
+ft_printf("%.5u", 42);
+```
+
+Output:
+
+```text
+00042
+```
+
+#### `%x` and `%X`
+
+The `%x` and `%X` conversions print an unsigned integer in hexadecimal format.
+
+`%x` uses lowercase letters:
+
+```text
+abcdef
+```
+
+`%X` uses uppercase letters:
+
+```text
+ABCDEF
+```
+
+Supported bonus options:
+
+| Option       | Supported |
+| ------------ | --------- |
+| `-`          | Yes       |
+| `0`          | Yes       |
+| `width`      | Yes       |
+| `.precision` | Yes       |
+
+Example:
+
+```c
+ft_printf("%x", 255);
+```
+
+Output:
+
+```text
+ff
+```
+
+Example:
+
+```c
+ft_printf("%X", 255);
+```
+
+Output:
+
+```text
+FF
+```
+
+Example:
+
+```c
+ft_printf("%6x", 255);
+```
+
+Output:
+
+```text
+    ff
+```
+
+Example:
+
+```c
+ft_printf("%06x", 255);
+```
+
+Output:
+
+```text
+0000ff
+```
+
+Example:
+
+```c
+ft_printf("%.5x", 255);
+```
+
+Output:
+
+```text
+000ff
+```
+
+#### `%p`
+
+The `%p` conversion prints a pointer address.
+
+Supported bonus options:
+
+| Option       | Supported           |
+| ------------ | ------------------- |
+| `-`          | Yes                 |
+| `width`      | Yes                 |
+| `0`          | No practical effect |
+| `.precision` | No                  |
+
+A non-null pointer is printed with the `0x` prefix followed by the address in lowercase hexadecimal.
+
+Example:
+
+```c
+ft_printf("%p", ptr);
+```
+
+Output format:
+
+```text
+0x...
+```
+
+Width can be used to align pointer output.
+
+Example:
+
+```c
+ft_printf("%20p", ptr);
+```
+
+The pointer is right-aligned inside a field of 20 characters.
+
+Example:
+
+```c
+ft_printf("%-20p", ptr);
+```
+
+The pointer is left-aligned inside a field of 20 characters.
+
+A null pointer is handled separately and printed as:
+
+```text
+(nil)
+```
+
+#### `%%`
+
+The `%%` conversion prints a literal percent sign.
+
+Example:
+
+```c
+ft_printf("%%");
+```
+
+Output:
+
+```text
+%
+```
+
+In this implementation, `%%` is printed directly as a percent character.
+
+### Summary of Supported Interactions
+
+| Conversion | `-` |                 `0` | Width | Precision |
+| ---------- | --: | ------------------: | ----: | --------: |
+| `%c`       | Yes | No practical effect |   Yes |        No |
+| `%s`       | Yes | No practical effect |   Yes |       Yes |
+| `%d`       | Yes |                 Yes |   Yes |       Yes |
+| `%i`       | Yes |                 Yes |   Yes |       Yes |
+| `%u`       | Yes |                 Yes |   Yes |       Yes |
+| `%x`       | Yes |                 Yes |   Yes |       Yes |
+| `%X`       | Yes |                 Yes |   Yes |       Yes |
+| `%p`       | Yes | No practical effect |   Yes |        No |
+| `%%`       |  No |                  No |    No |        No |
+
+The most important interaction rules are:
+
+* `-` overrides `0`;
+* precision overrides `0` for numeric conversions;
+* width adds padding only if the printed result is shorter than the requested width;
+* precision has different meanings for strings and numbers;
+* for strings, precision limits the maximum number of characters;
+* for numbers, precision sets the minimum number of digits;
+* for hexadecimal conversions, `%x` and `%X` behave the same except for the alphabetic case.
 
 ## Resources
 
