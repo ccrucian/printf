@@ -14,8 +14,8 @@
 
 void	char_put(va_list list, int *cont)
 {
-	int	n;
-	char	c;
+	int			n;
+	char		c;
 
 	n = va_arg(list, int);
 	c = (char)n;

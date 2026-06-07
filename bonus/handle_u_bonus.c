@@ -51,8 +51,8 @@ void	handle_u(unsigned int n, t_opt *opt, int *cont)
 
 void	put_un(unsigned int n, int *cont, int zero)
 {
-	unsigned long	nb;
-	char	c;
+	unsigned long		nb;
+	char				c;
 
 	nb = n;
 	if (zero > 0)
@@ -76,5 +76,3 @@ int	count_digits_u(unsigned int n)
 	}
 	return (count);
 }
-
-

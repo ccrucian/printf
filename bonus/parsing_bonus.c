@@ -22,7 +22,7 @@ void	parse_specifier(char const *s, t_opt *opt)
 		if (is_specifier(s[i]))
 		{
 			opt->spec = s[i];
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -45,7 +45,7 @@ void	parse_point_precision(const char *s, t_opt *opt)
 				opt->prec = (opt->prec * 10) + (s[i] - '0');
 				i++;
 			}
-			break;
+			break ;
 		}
 		i++;
 	}

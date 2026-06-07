@@ -34,20 +34,7 @@ static void	put_null_ptr(t_opt *opt, int *cont)
 		put_str_prec(s, cont, -1);
 }
 
-int	count_hex(unsigned long n)
-{
-	int	i;
-
-	i = 1;
-	while (n / 16 != 0)
-	{
-		n /= 16;
-		i++;
-	}
-	return (i);
-}
-
-void	 handle_p(unsigned long p, t_opt *opt, int *cont)
+void	handle_p(unsigned long p, t_opt *opt, int *cont)
 {
 	int	n;
 
@@ -55,7 +42,7 @@ void	 handle_p(unsigned long p, t_opt *opt, int *cont)
 	{
 		put_null_ptr(opt, cont);
 		return ;
-	}	 
+	}
 	n = count_hex(p);
 	if (opt->width > n + 2)
 	{
@@ -72,24 +59,6 @@ void	 handle_p(unsigned long p, t_opt *opt, int *cont)
 	}
 	else
 		put_hex_p(p, cont);
-}
-
-void	put_hex_digits(unsigned long ptr, int *cont)
-{
-	char	*base;
-
-	base = "0123456789abcdef";
-	if (ptr >= 16)
-		put_hex_digits(ptr / 16, cont);
-	write(1, &base[ptr % 16], 1);
-	(*cont)++;
-}
-
-void	put_hex_p(unsigned long ptr, int *cont)
-{
-	put_char('0', cont);
-	put_char('x', cont);
-	put_hex_digits(ptr, cont);
 }
 
 /*int	main(void)

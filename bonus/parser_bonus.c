@@ -34,7 +34,7 @@ void	initialize_options(t_opt *opt)
 int	is_specifier(char c)
 {
 	if (c == 'c' || c == 'p' || c == 's' || c == 'd' || c == 'u'
-			|| c == 'i' || c == 'x' || c == 'X' || c == '%')
+		|| c == 'i' || c == 'x' || c == 'X' || c == '%')
 		return (1);
 	else
 		return (0);

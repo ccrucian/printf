@@ -29,32 +29,22 @@ void	check_put_sign_set_positive(int *n, int *cont);
 void	handle_p(unsigned long ptr, t_opt *opt, int *cont);
 void	put_hex_p(unsigned long ptr, int *cont);
 int	count_hex(unsigned long n);
-void	handle_xX(unsigned int n, t_opt *opt, int *cont);
-void	put_hex_xX(unsigned int n, int *cont, int zero, const char *base);
+void	handle_xx(unsigned int n, t_opt *opt, int *cont);
+void	put_hex_xx(unsigned int n, int *cont, int zero, const char *base);
 void	handle_u(unsigned int n, t_opt *opt, int *cont);
 void	put_un(unsigned int n, int *cont, int zero);
 int	count_digits_u(unsigned int n);
-
-
-//	parser.c
 void	ft_parser(char const *s, t_opt *opt);
 void	initialize_options(t_opt *opt);
 int	is_specifier(char c);
 int	is_digit(char c);
-
-
-//	parsing.c
 void	parse_specifier(const char *s, t_opt *opt);
 void	parse_point_precision(const char *s, t_opt *opt);
 void	parse_width(const char *s, t_opt *opt);
 void	parse_flag(const char *s, t_opt *opt);
-
-//	butils_b.c
 int	count_digits(int n);
 void	put_nbr(int n, int *cont, int zero);
 void	put_pad_zero(int i_pad, int *cont);
-
-//	utils_b.c
 void	put_str_prec(char const *s, int *cont, int prec);
 void	padding(int width, int *cont, int len, int prec);
 void	put_pad(int i_pad, int *cont);

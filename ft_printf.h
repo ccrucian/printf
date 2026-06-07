@@ -33,5 +33,4 @@ void	put_char(const char c, int *cont);
 void	put_hex_digits(unsigned long ptr, int *cont);
 void	put_hex_p(unsigned long ptr, int *cont);
 
-
 #endif

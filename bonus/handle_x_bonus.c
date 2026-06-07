@@ -20,48 +20,45 @@ static void	set_base(char spec, const char **base)
 		*base = "0123456789ABCDEF";
 }
 
-void	handle_xX(unsigned int n, t_opt *opt, int *cont)
+static void	put_x_padding(t_opt *opt, int len, int *cont)
 {
-	int	len;
-	int	zero;
+	if (opt->zero == 1 && opt->point == 0)
+		put_pad_zero(opt->width - len, cont);
+	else
+		put_pad(opt->width - len, cont);
+}
+
+static void	set_x_precision(t_opt *opt, int *len, int *zero)
+{
+	*zero = 0;
+	if (opt->prec > *len)
+	{
+		*zero = opt->prec - *len;
+		*len = *len + *zero;
+	}
+}
+
+void	handle_xx(unsigned int n, t_opt *opt, int *cont)
+{
+	int			len;
+	int			zero;
 	const char	*base;
 	
 	if (n == 0 && opt->prec == 0 && opt->width == 0)
 		return ;
 	set_base(opt->spec, &base);
 	len = count_hex((unsigned long)n);
-	zero = 0;
-	if (opt->prec > len)
-	{
-		zero = opt->prec - len;
-		len = len + zero;
-	}
+	set_x_precision(opt, &len, &zero);
 	if (len >= opt->width)
-		put_hex_xX(n, cont, zero, base);
-	else if (opt->width > len)
+		put_hex_xx(n, cont, zero, base);
+	else if (opt->minus == 1)
 	{
-		if (opt->minus == 1)
-		{
-			put_hex_xX(n, cont, zero, base);
-			put_pad((opt->width - len), cont);
-		}
-		else
-		{
-			if (opt->zero == 1 && opt->point == 0)
-				put_pad_zero((opt->width - len), cont);
-			else
-				put_pad((opt->width - len), cont);
-			put_hex_xX(n, cont, zero, base);
-		}
+		put_hex_xx(n, cont, zero, base);
+		put_pad((opt->width - len), cont);
 	}
-}
-
-void	put_hex_xX(unsigned int n, int *cont, int zero, const char *base)
-{
-	if (zero > 0)
-		put_pad_zero(zero, cont);
-	if (n >= 16)
-		put_hex_xX(n / 16, cont, 0, base);
-	(*cont)++;
-	write(1, &base[n % 16], 1);
+	else
+	{
+		put_x_padding(opt, len, cont);
+		put_hex_xx(n, cont, zero, base);
+	}
 }
