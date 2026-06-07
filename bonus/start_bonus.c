@@ -14,10 +14,10 @@
 
 int	ft_printf(const char *s, ...)
 {
-	int	i;
-	int	cont;
-	va_list	list;
-	t_opt	opt;
+	int			i;
+	int			cont;
+	va_list		list;
+	t_opt		opt;
 
 	i = 0;
 	cont = 0;
@@ -32,12 +32,18 @@ int	ft_printf(const char *s, ...)
 		else
 		{
 			ft_parser(&s[++i], &opt);
-			read_spec(list, &opt, &cont);
+			call_print_functions(list, &opt, &cont);
 			iter_opt(&s[i], &i);
 		}
 	}
 	va_end(list);
 	return (cont);
+}
+
+void	put_char(const char c, int *cont)
+{
+	write(1, &c, 1);
+	(*cont)++;
 }
 
 void	iter_opt(const char *s, int *i)
@@ -51,12 +57,6 @@ void	iter_opt(const char *s, int *i)
 	}
 	n++;
 	*i += n;
-}
-
-void	put_char(const char c, int *cont)
-{
-	write(1, &c, 1);
-	(*cont)++;
 }
 
 /*int	main(void)

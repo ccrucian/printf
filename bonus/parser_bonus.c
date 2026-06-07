@@ -14,14 +14,14 @@
 
 void	ft_parser(char const *s, t_opt *opt)
 {
-	set_opt(opt);
+	initialize_options(opt);
 	parse_flag(s, opt);
 	parse_width(s, opt);
 	parse_point_precision(s, opt);
 	parse_specifier(s, opt);
 }
 
-void	set_opt(t_opt *opt)
+void	initialize_options(t_opt *opt)
 {
 	opt->minus = 0;
 	opt->zero = 0;
@@ -34,7 +34,7 @@ void	set_opt(t_opt *opt)
 int	is_specifier(char c)
 {
 	if (c == 'c' || c == 'p' || c == 's' || c == 'd' || c == 'u'
-			|| c == 'i' || c == 'x' || c == 'X' || c == '%')
+		|| c == 'i' || c == 'x' || c == 'X' || c == '%')
 		return (1);
 	else
 		return (0);

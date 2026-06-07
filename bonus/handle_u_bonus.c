@@ -12,6 +12,15 @@
 
 #include "ft_printf_bonus.h"
 
+static void	print_u_padded(unsigned int n, t_opt *opt, int *cont, int zero)
+{
+	if (opt->zero == 1 && opt->point == 0)
+		put_pad_zero(opt->width - count_digits_u(n) - zero, cont);
+	else
+		put_pad(opt->width - count_digits_u(n) - zero, cont);
+	put_un(n, cont, zero);
+}
+
 void	handle_u(unsigned int n, t_opt *opt, int *cont)
 {
 	int	len;
@@ -26,7 +35,7 @@ void	handle_u(unsigned int n, t_opt *opt, int *cont)
 		zero = opt->prec - len;
 		len = len + zero;
 	}
-	if (len >= opt-> width)
+	if (len >= opt->width)
 		put_un(n, cont, zero);
 	else if (opt->width > len)
 	{
@@ -36,20 +45,14 @@ void	handle_u(unsigned int n, t_opt *opt, int *cont)
 			put_pad((opt->width - len), cont);
 		}
 		else
-		{
-			if (opt->zero == 1 && opt->point == 0)
-				put_pad_zero((opt->width - len), cont);
-			else
-				put_pad((opt->width - len), cont);
-			put_un(n, cont, zero);
-		}
+			print_u_padded(n, opt, cont, zero);
 	}
 }
 
 void	put_un(unsigned int n, int *cont, int zero)
 {
-	unsigned long	nb;
-	char	c;
+	unsigned long		nb;
+	char				c;
 
 	nb = n;
 	if (zero > 0)
@@ -73,5 +76,3 @@ int	count_digits_u(unsigned int n)
 	}
 	return (count);
 }
-
-

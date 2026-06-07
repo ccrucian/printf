@@ -31,32 +31,6 @@ void	put_str_prec(const char *s, int *cont, int prec)
 	}
 }
 
-void	padding(int width, int *cont, int len, int prec)
-{
-	int	i_pad;
-
-	if (prec == 0)
-	{
-		i_pad = width;
-		put_pad(i_pad, cont);
-	}
-	else
-	{
-		i_pad = width - len;
-		put_pad(i_pad, cont);
-	}
-}
-
-void	put_pad(int i_pad, int *cont)
-{
-	while (i_pad > 0)
-	{
-		write(1, " ", 1);
-		(*cont)++;
-		i_pad--;
-	}
-}
-
 int	ft_strlen(char const *s)
 {
 	size_t	i;

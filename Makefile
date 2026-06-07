@@ -5,7 +5,8 @@ SRC_DIR = srcs
 
 SRCS = ft_printf.c \
       utils.c \
-      2utils.c 
+      utils_2.c \
+	  utils_3.c
 
 INC = ft_printf.h
 
@@ -13,15 +14,19 @@ OBJ = $(SRCS:.c=.o)
 
 BONUS_DIR = bonus
 
-SRCS_BONUS = $(BONUS_DIR)/dutils_b_bonus.c \
+SRCS_BONUS = $(BONUS_DIR)/dispatch_bonus.c \
 		$(BONUS_DIR)/handle_p_bonus.c \
 		$(BONUS_DIR)/handle_u_bonus.c \
 		$(BONUS_DIR)/handle_x_bonus.c \
+		$(BONUS_DIR)/handle_c_s_bonus.c \
+		$(BONUS_DIR)/handle_d_i_bonus.c \
+		$(BONUS_DIR)/hex_utils_bonus.c \
+		$(BONUS_DIR)/number_utils_bonus.c \
+		$(BONUS_DIR)/string_utils_bonus.c \
+		$(BONUS_DIR)/padding_bonus.c \
 		$(BONUS_DIR)/parser_bonus.c \
 		$(BONUS_DIR)/parsing_bonus.c \
-		$(BONUS_DIR)/specif_bonus.c \
 		$(BONUS_DIR)/start_bonus.c \
-		$(BONUS_DIR)/utils_b_bonus.c
 		
 OBJ_BONUS = $(SRCS_BONUS:.c=.o)
 
